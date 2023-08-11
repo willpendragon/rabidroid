@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Level/Scenes/Deprecated/GrassField.unity
+    path: Assets/Level/Scenes/Deprecated/GrassField2D.unity
     guid: 8330ba6c775895c4095244455338a536
   - enabled: 0
     path: Assets/Level/Scenes/Deprecated/UnderWorld.unity
     guid: e1c9a413df3b6fb4da07e39674aa03bd
   - enabled: 0
-    path: Assets/Level/Scenes/GrassField.unity
+    path: Assets/Level/Scenes/Deprecated/GrassField.unity
     guid: 0670c89c134f7cd47815f0e2d462b333
   - enabled: 0
     path: Assets/Level/Scenes/Deprecated/TentInside.unity
