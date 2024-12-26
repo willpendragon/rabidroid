@@ -6,48 +6,40 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-[SerializeField] TextMeshProUGUI rockUnitsCounter;
-[SerializeField] Slider playerHPBar;
-[SerializeField] GameObject playerPrefab;
-[SerializeField] TextMeshProUGUI experiencePointsCounter;
-[SerializeField] Inventory inventory;
- public GameObject prefab;
-public Transform content;
+    [SerializeField] TextMeshProUGUI rockUnitsCounter;
+    [SerializeField] Slider playerHPBar;
+    [SerializeField] GameObject playerPrefab;
+    [SerializeField] TextMeshProUGUI experiencePointsCounter;
+    [SerializeField] Inventory inventory;
+    public GameObject prefab;
+    public Transform content;
 
-public List<Weapon> weapons;
-private static UIManager _instance;
-public static UIManager Instance
+    public List<Weapon> weapons;
+    public static UIManager Instance { get; private set; }
+
+    void Awake()
     {
-        get
-        {
-            if (_instance == null)
-            Debug.LogError("UIManager is Null.");
-
-            return _instance;
-        }
+        Instance = this;
+        DontDestroyOnLoad(this);
     }
-void Awake()
-{
-    _instance = this;
-    DontDestroyOnLoad(this);
-    playerHPBar.value = playerPrefab.GetComponent<PlayerHealth>().playerHP;
-    playerHPBar.maxValue = playerPrefab.GetComponent<PlayerHealth>().playerHP;
-   
-}
-void Start()
-{
-    Inventory inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
-    weapons = inventory.weapons;
-    PopulateWeaponList();
-    UpdateRockUnitsCounter();
-    UpdatePlayerHPBar();
-    UpdateExperiencePointsDisplay();
-}
+    void Start()
+    {
+        if (playerPrefab != null)
+        {
+            playerHPBar.value = playerPrefab.GetComponent<PlayerHealth>().currentHealth;
+            playerHPBar.maxValue = playerPrefab.GetComponent<PlayerHealth>().maxHealth;
+        }
+        Inventory inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
+        weapons = inventory.weapons;
+        PopulateWeaponList();
+        UpdateRockUnitsCounter();
+        UpdateExperiencePointsDisplay();
+    }
 
     private void OnEnable()
     {
         Enemy.OnEnemyDeath += UpdateExperiencePointsDisplay;
-        IncreaseRockUnits.OnRockLoot += UpdateRockUnitsCounter;  
+        IncreaseRockUnits.OnRockLoot += UpdateRockUnitsCounter;
     }
 
     private void OnDisable()
@@ -56,23 +48,35 @@ void Start()
         IncreaseRockUnits.OnRockLoot -= UpdateRockUnitsCounter;
     }
     public void UpdateRockUnitsCounter()
-{
-    if (rockUnitsCounter != null)
     {
-        rockUnitsCounter.text = GameManager.Instance.rockUnits.ToString();
+        if (rockUnitsCounter != null)
+        {
+            rockUnitsCounter.text = GameManager.Instance.rockUnits.ToString();
+        }
     }
-}
-public void UpdatePlayerHPBar()
-{
+
+    public void SetupPlayerHPBar(float maxPlayerHealth, float currentPlayerHealth)
     {
-        playerHPBar.value = playerPrefab.GetComponent<PlayerHealth>().playerHP;
+        if (playerPrefab != null)
+        {
+            playerHPBar.maxValue = maxPlayerHealth;
+            playerHPBar.value = currentPlayerHealth;
+        }
     }
-}
-public void UpdateExperiencePointsDisplay()
-{
-    experiencePointsCounter.text = GameManager.Instance.experiencePoints.ToString();
-}
-private void PopulateWeaponList()
+    public void UpdatePlayerHPBar(float currentPlayerHealth)
+    {
+        {
+            if (playerPrefab != null)
+            {
+                playerHPBar.value = currentPlayerHealth;
+            }
+        }
+    }
+    public void UpdateExperiencePointsDisplay()
+    {
+        experiencePointsCounter.text = GameManager.Instance.experiencePoints.ToString();
+    }
+    private void PopulateWeaponList()
     {
         foreach (Weapon weapon in weapons)
         {

@@ -52,14 +52,14 @@ public class MouseDroidBehaviour : MonoBehaviour
         if (currentDroidState == DroidMentalState.peaceful)
         {
             agent.SetDestination(playerPrefab.transform.position);
-            //Droid is peaceful, returning to Player
+            // Droid is peaceful, returning in Player's proximity
         }
         else if (currentDroidState == DroidMentalState.aggressive && targetedEnemy == null)
         {
             ScanForEnemies();
-            //Droid is aggressive, looking for Enemies
+            // Droid is aggressive, looking for Enemies to Attack
         }
-        else if (targetedEnemy != null)
+        else if (targetedEnemy != null && targetedEnemy.GetComponent<Enemy>().health > 0)
         {
             AttackEnemy(targetedEnemy);
             agent.SetDestination(targetedEnemy.transform.position);
@@ -74,6 +74,7 @@ public class MouseDroidBehaviour : MonoBehaviour
     {
         currentDroidState = DroidMentalState.peaceful;
         electroSlashParticle.Stop();
+        GetComponent<MouseDroidBattery>().TriggerBatteryRecharge();
     }
     public void ScanForEnemies()
     {
@@ -87,6 +88,7 @@ public class MouseDroidBehaviour : MonoBehaviour
                 hitEnemy.SetTargetedState();
                 targetedEnemy = hitCollider.gameObject;
                 AttackEnemy(targetedEnemy);
+                GetComponent<MouseDroidBattery>().TriggerBatteryDepletion();
                 Debug.Log("Target Acquired");
             }
         }
@@ -114,7 +116,6 @@ public class MouseDroidBehaviour : MonoBehaviour
     }
     private IEnumerator CooldownCoroutine()
     {
-     
         yield return new WaitForSeconds(cooldownDuration);
         isCooldownActive = false;
     }

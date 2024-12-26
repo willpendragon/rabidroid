@@ -42,8 +42,8 @@ public class Gathering : MonoBehaviour
                     miningAudio.Play();
                     miningState = MiningState.active;
                     weaponAnimator.SetBool("mining", true);
-                    int extractedResource = hit.collider.gameObject.GetComponent<ExtractionPoint>().availableResource;
-                    gameManager.rockUnits += extractedResource;
+                    //int extractedResource = hit.collider.gameObject.GetComponent<ExtractionPoint>().availableResource;
+                    //gameManager.rockUnits += extractedResource;
                     uiManager.UpdateRockUnitsCounter();
                     StartCoroutine("MiningCooldown");
                 }

@@ -10,7 +10,7 @@ public enum Weather
 public class WeatherManager : MonoBehaviour
 {
     public ParticleSystem rainParticleSystem;
-    
+
     public Weather currentWeather;
     [SerializeField] float rainTimer;
     [SerializeField] float rainLength;
@@ -48,7 +48,7 @@ public class WeatherManager : MonoBehaviour
     {
         yield return new WaitForSeconds(resetRainTimer);
         rainParticleSystem.Stop();
-        rainTimer = 5; 
+        rainTimer = 5;
         Debug.Log("Rain Stopped");
         currentWeather = Weather.sunny;
         StartCoroutine("RainCountdown");
@@ -56,8 +56,8 @@ public class WeatherManager : MonoBehaviour
     void DamagePlayer()
     {
         PlayerHealth playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-        playerHealth.playerHP -= 1 * Time.deltaTime;
+        playerHealth.currentHealth -= 1 * Time.deltaTime;
         UIManager uiManager = GameObject.FindGameObjectWithTag("GameUI").GetComponent<UIManager>();
-        uiManager.UpdatePlayerHPBar();
+        uiManager.UpdatePlayerHPBar(playerHealth.currentHealth);
     }
 }

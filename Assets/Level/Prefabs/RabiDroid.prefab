@@ -5644,7 +5644,7 @@ GameObject:
   - component: {fileID: 1231337631544710100}
   - component: {fileID: 7308719762762959089}
   m_Layer: 7
-  m_Name: Droid3D
+  m_Name: RabiDroid
   m_TagString: Droid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5746,7 +5746,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalBatteryLife: 15
+  currentBatteryLife: 0
   mouseDroidBehaviour: {fileID: 5546978674982379865}
+  batteryDepletionFactor: 2
+  batteryRechargeFactor: 0.5
 --- !u!1001 &100628107408500352
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,21 +1,19 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.AI;
-using UnityEditor;
 using UnityEngine.Events;
 
 public enum EnemyState
 {
-    alive,
-    dead,
+    Alive,
+    Dead,
 }
 public enum TargetedState
-{ 
-    targeted,
-    free
+{
+    Targeted,
+    Free
 }
 public class Enemy : MonoBehaviour
 {
@@ -25,10 +23,9 @@ public class Enemy : MonoBehaviour
 
     [Header("Enemy Stats")]
     public float health;
-    //public int playerDamage;
     [SerializeField] float enemyAttackRange;
     [SerializeField] float enemySightRange;
-    [SerializeField] float enemyDamage;
+    public float enemyDamage;
 
     [Header("Graphics")]
     [SerializeField] SkinnedMeshRenderer enemyMeshRenderer;
@@ -63,8 +60,8 @@ public class Enemy : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("GameUI").GetComponent<UIManager>();
         playerPrefab = GameObject.FindGameObjectWithTag("Player");
         playerModel = GameObject.FindGameObjectWithTag("PlayerModel");
-        enemyState = EnemyState.alive;
-        targetedState = TargetedState.free;
+        enemyState = EnemyState.Alive;
+        targetedState = TargetedState.Free;
         SetHealthPointsSlider();
     }
     void Update()
@@ -76,7 +73,7 @@ public class Enemy : MonoBehaviour
     void SearchForPlayer()
     {
         //If the Alert Mode is Active, sets the Agent current destination to the Player current position.
-        if (alertModeIsActive == true && enemyState != EnemyState.dead)
+        if (alertModeIsActive == true && enemyState != EnemyState.Dead)
         {
             enemyAnimator.SetInteger("animation", 2);
             agent.SetDestination(playerModel.transform.position);
@@ -97,15 +94,15 @@ public class Enemy : MonoBehaviour
 
     public void SwitchToAlertMode()
     {
-        //This methods changes the Enemy's behaviour from passive to aggressive.
+        // This methods changes the Enemy's behaviour from passive to aggressive.
         alertModeIsActive = true;
     }
 
     public void TakeDamage(float droidAttackPower)
     {
-        //Subtracts an amount of Health Points from this Enemy corresponding to the Attack Power
-        //of the corresponding RabiDroid Unit.
-        if (enemyState != EnemyState.dead)
+        // Subtracts an amount of Health Points from this Enemy corresponding to the Attack Power
+        // of the corresponding RabiDroid Unit.
+        if (enemyState != EnemyState.Dead)
         {
             enemyAnimator.SetInteger("animation", 4);
             enemyMeshRenderer.material.color = Color.red;
@@ -117,7 +114,7 @@ public class Enemy : MonoBehaviour
     public void CheckRemaniningHealth()
 
     {
-        //Checks if this Enemy's health has reached 0. If positive, calls the death method on this Enemy.
+        // Checks if this Enemy's health has reached 0. If positive, calls the Die method on this Enemy.
         if (health <= 0)
         {
             Die();
@@ -129,14 +126,10 @@ public class Enemy : MonoBehaviour
         OnEnemyDeath();
         Debug.Log("Enemy Death");
         enemyDataCanvas.enabled = false;
-        //Sets the current state of the Enemy to Dead.
-        enemyState = EnemyState.dead;
-        //Stops this Navmesh Agent's movement.
+        // Sets the current state of the Enemy to Dead.
+        enemyState = EnemyState.Dead;
+        // Stops this Navmesh Agent's movement.
         agent.isStopped = true;
-
-        //For future reference: call a method on the Player that increases their amount of Experience Points.
-        //playerPrefab.GetComponent<PlayerExperience>().IncreaseExperiencePoints(gainedExpAmount);
-
     }
     public void PlayEnemyDeathVisuals()
     {
@@ -155,29 +148,13 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(2);
         enemyDeathFX.Play();
     }
-    public void DropLoot()
-    {
-        if (lootedObject != null)
-        {
-            //Drops a piece of loot on the battleground.
-            Instantiate(lootedObject, this.gameObject.transform.position, Quaternion.identity);
-            lootedObject.transform.SetParent(null, true);
-        }
-    }
 
     public void DeactivateEnemyCollider()
     {
-        this.GetComponent<Collider>().enabled = false;  
+        this.GetComponent<Collider>().enabled = false;
     }
-
-    public void IncreasePlayersRockUnits()
-    {
-        //For future reference: change this implementation using Unity Events.
-        gameManager.rockUnits += rockUnitsLoot;
-    }
-
     public void SetTargetedState()
     {
-        targetedState = TargetedState.targeted;
+        targetedState = TargetedState.Targeted;
     }
 }

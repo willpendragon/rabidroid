@@ -32,33 +32,28 @@ public class DroidBehaviour : MonoBehaviour
     void Awake()
     {
         playerPrefab = GameObject.FindGameObjectWithTag("Player");
-        //enemyPrefab = GameObject.FindGameObjectWithTag(enemyTag);
         droidState = DroidState.peaceful;
     }
     // Update is called once per frame
     void Update()
     {
         MoveToPlayer();
-        /*&& enemyPrefab != null*/
-        //distanceToEnemy <= attackRange && 
         if (droidState == DroidState.aggressive)
         {
-           //AttackEnemy();
-           ScanForEnemy();
+            ScanForEnemy();
         }
         else
-        MoveToPlayer();    
-    // Cooldown timer
+            MoveToPlayer();
+
+        // Cooldown timer
         if (attackTimer > 0)
         {
-           attackTimer -= Time.deltaTime;
+            attackTimer -= Time.deltaTime;
         }
-        }
+    }
     void ScanForEnemy()
     {
         Debug.Log("Scanning for Enemy");
-        //Vector2 enemyPosition = enemyPrefab.transform.position;
-        //Vector2 direction = (enemyPosition - droidRigidbody.position).normalized;
         Collider2D[] actorsInSight = Physics2D.OverlapCircleAll(transform.position, scanRadius);
         foreach (Collider2D col in actorsInSight)
         {
@@ -67,20 +62,17 @@ public class DroidBehaviour : MonoBehaviour
                 enemyTarget = col.gameObject;
                 AttackEnemy();
                 Debug.Log("Droid is Attacking");
-            } 
+            }
         }
     }
     void AttackEnemy()
     {
         Vector2 enemyPosition = enemyTarget.transform.position;
         Vector2 direction = (enemyPosition - droidRigidbody.position).normalized;
-        //distanceToEnemy = Vector3.Distance(this.gameObject.transform.position, enemyPrefab.transform.position);
         droidRigidbody.velocity = direction * speed;
         if (attackTimer <= 0)
         {
             droidAnim.SetBool("isAttacking", true);
-            // Your attack logic here. You can access the enemyPrefab to apply damage or apply any effect.
-            //enemyTarget.GetComponent<Enemy>().TakeDamage(1);
             Debug.Log("Droid attacked the enemy!");
             // Reset the attack timer
             attackTimer = attackCooldown;
@@ -113,6 +105,6 @@ public class DroidBehaviour : MonoBehaviour
             droidState = DroidState.peaceful;
             droidAnim.SetBool("isAttacking", false);
         }
-        
+
     }
 }

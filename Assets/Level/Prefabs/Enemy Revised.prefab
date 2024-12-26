@@ -327,10 +327,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.34729955
-  m_Height: 0.9577092
+  m_Radius: 0.6899126
+  m_Height: 1.3798252
   m_Direction: 1
-  m_Center: {x: -0.0025567424, y: 0.31, z: -2.959885e-12}
+  m_Center: {x: -0.0025567429, y: 0.31, z: 0.03647682}
 --- !u!195 &4470062824098493222
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -419,7 +419,7 @@ MonoBehaviour:
   health: 50
   enemyAttackRange: 0
   enemySightRange: 0
-  enemyDamage: 0
+  enemyDamage: 2.5
   enemyMeshRenderer: {fileID: 340392805957362964}
   enemyAnimator: {fileID: 340392805961440212}
   enemyDeathFX: {fileID: 6378644920592099796}
