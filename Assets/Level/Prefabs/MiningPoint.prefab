@@ -329,6 +329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c559168377d114540b8f0f320b964f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  extractionTimer: 0.5
+  rocksReward: 20
 --- !u!136 &8800896121897957514
 CapsuleCollider:
   m_ObjectHideFlags: 0

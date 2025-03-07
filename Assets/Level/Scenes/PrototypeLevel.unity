@@ -1425,7 +1425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2257293802390029037, guid: f21d3ba90da2b9643ab98e0658d6d769, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 10.31
       objectReference: {fileID: 0}
     - target: {fileID: 2257293802390029037, guid: f21d3ba90da2b9643ab98e0658d6d769, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1433,7 +1433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2257293802390029037, guid: f21d3ba90da2b9643ab98e0658d6d769, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14
+      value: 27.33
       objectReference: {fileID: 0}
     - target: {fileID: 2257293802390029037, guid: f21d3ba90da2b9643ab98e0658d6d769, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1662,7 +1662,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7296367194138988960, guid: 5167e7f952af9ff42a143f85b17280dd, type: 3}
       propertyPath: rockUnits
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7296367194138988961, guid: 5167e7f952af9ff42a143f85b17280dd, type: 3}
       propertyPath: m_RootOrder
@@ -1731,11 +1731,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7255438639526892131, guid: 21603d3540340044483cac218f54acdf, type: 3}
       propertyPath: rocksReward
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7255438639526892131, guid: 21603d3540340044483cac218f54acdf, type: 3}
       propertyPath: extractionTimer
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8067482246007728929, guid: 21603d3540340044483cac218f54acdf, type: 3}
       propertyPath: m_RootOrder
